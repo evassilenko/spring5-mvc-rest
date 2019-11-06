@@ -17,7 +17,7 @@ import guru.springfamework.domain.Category;
 import guru.springfamework.repositories.CategoryRepository;
 import static org.mockito.ArgumentMatchers.anyString;
 
-public class CategoryServiceTest {
+public class CategoryServiceImplTest {
 
     public static final Long ID = 2L;
     public static final String NAME = "Jimmy";
