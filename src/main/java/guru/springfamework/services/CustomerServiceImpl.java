@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.controllers.v1.CustomerController;
+import guru.springfamework.controllers.v1.RestResponseEntityExceptionHandler;
 import guru.springfamework.domain.Customer;
+import guru.springfamework.exceptions.ResourceNotFoundException;
 import guru.springfamework.repositories.CustomerRepository;
 
 @Service
@@ -41,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
 				.map(customerDTO -> {
 					customerDTO.setCustomerUrl(getCustomerUrl(id));
 					return customerDTO;
-				}).orElseThrow(RuntimeException::new);
+				}).orElseThrow(ResourceNotFoundException::new);
 
 	}
 
@@ -87,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             return returnDto;
 
-        }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
+        }).orElseThrow(ResourceNotFoundException::new); 
     }
 	
 	@Override
