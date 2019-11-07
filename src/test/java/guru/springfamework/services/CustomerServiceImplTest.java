@@ -1,7 +1,7 @@
 package guru.springfamework.services;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 
@@ -60,14 +61,14 @@ public class CustomerServiceImplTest {
     public void getCustomerByID() throws Exception {
 
         //given
-    	List<Customer> customerList = new ArrayList<Customer>();
+    	
     	Customer customer = new Customer();
     	customer.setId(ID);
     	customer.setFirstname(FIRST_NAME);
     	customer.setLastname(LAST_NAME);
-    	customerList.add(customer);
+    	
 
-        when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
+        when(customerRepository.findById(anyLong())).thenReturn(Optional.ofNullable(customer));
 
         //when
         CustomerDTO customerDTO = customerService.getCustomerById(ID);
@@ -97,7 +98,8 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+//        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
+        
     }
     
     @Test
@@ -119,7 +121,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDTO.getFirstname(), savedDto.getFirstname());
-        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+        assertEquals(CustomerController.BASE_URL + "/1", savedDto.getCustomerUrl());
     }
     
     @Test
