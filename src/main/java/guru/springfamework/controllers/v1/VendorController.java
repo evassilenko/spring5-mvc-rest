@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import guru.springfamework.api.v1.model.VendorDTO;
 import guru.springfamework.api.v1.model.VendorListDTO;
 import guru.springfamework.services.VendorService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(description = "My Vendor controller")
 @RestController
 @RequestMapping(VendorController.BASE_URL)
 public class VendorController {
@@ -37,6 +40,7 @@ public class VendorController {
 		response.setHeader("Cache-Control", "no-transform, public, max-age=86400");
 	}*/
 
+    @ApiOperation(notes = "This service will provide you with the all vendors list", value="Get all vendors list")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public VendorListDTO getallVendors(HttpServletResponse response){
