@@ -1,7 +1,10 @@
 package guru.springfamework.controllers.v1;
 
+import java.time.LocalTime;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,10 +31,18 @@ public class VendorController {
     public VendorController(VendorService vendorService) {
         this.vendorService = vendorService;
     }
+    
+    /*@ModelAttribute
+	public void setResponseHeader(HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-transform, public, max-age=86400");
+	}*/
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public VendorListDTO getallVendors(){
+    public VendorListDTO getallVendors(HttpServletResponse response){
+    	response.setHeader("Cache-Control", "no-transform, public, max-age=86400");
+    	LocalTime now = LocalTime.now();
+    	System.out.println(now);
         return new VendorListDTO(vendorService.getAllVendors());
     }
 
