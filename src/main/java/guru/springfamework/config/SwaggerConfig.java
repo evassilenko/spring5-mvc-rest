@@ -1,8 +1,8 @@
 package guru.springfamework.config;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.PathSelectors;
@@ -13,13 +13,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
-import static springfox.documentation.builders.PathSelectors.regex;
-
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig { //extends WebMvcConfigurationSupport {
 	
+	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 			.select()
@@ -29,7 +27,7 @@ public class SwaggerConfig { //extends WebMvcConfigurationSupport {
 			.apiInfo(metaData());
 	}
 	
-	private ApiInfo metaData(){
+	private final ApiInfo metaData(){
 
         Contact contact = new Contact("John Thompson", "https://springframework.guru/about/",
                 "john@springfrmework.guru");
